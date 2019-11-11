@@ -1,18 +1,25 @@
-#ifndef SPARSE_MATRIX_NODE_H
-#define SPARSE_MATRIX_NODE_H
-
 template <typename T>
 class Matrix;
 
 template <typename T>
 class Node {
-protected:
-    Node<T> *next, *down;
+  public:
+	explicit Node() = default;
 
-public:
-    explicit Node();
+	Node(unsigned int row, unsigned int col, T val) : row(row), column(col), value(val) {}
 
-    friend class Matrix<T>;
+	void deleteSelf() {
+	  if(next)
+		next->deleteSelf();
+	  delete this;
+	}
+
+	friend class Matrix<T>;
+
+  protected:
+	Node<T> *next = nullptr;
+	Node<T> *down = nullptr;
+	unsigned int row = 0;
+	unsigned int column = 0;
+	T value;
 };
-
-#endif //SPARSE_MATRIX_NODE_H
