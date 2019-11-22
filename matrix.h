@@ -94,6 +94,7 @@ Matrix<T>::Matrix(const Matrix<T> &other) {
 template <typename T>
 void Matrix<T>::set(unsigned int row, unsigned int column, T val) {
   checkBounds(row, column);
+  // Los nodos se crean aún si no se insertan (i.e. 0), solo deberías crear en ciertos casos
   auto newNode = new Node<T>(row, column, val);
 
   auto tmp = &m_Root;
@@ -188,6 +189,8 @@ T Matrix<T>::operator()(unsigned int row, unsigned int column) const {
 
   return tmp->value;
 }
+
+// Utilizar las operaciones de la matriz afectará el performance de las siguientes operaciones
 
 template <typename T>
 const Matrix<T> Matrix<T>::operator*(T scalar) const {
